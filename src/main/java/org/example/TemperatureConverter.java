@@ -1,6 +1,6 @@
 package org.example;
 import java.util.Scanner;
-public class Main {
+public class TemperatureConverter {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         double celsius =37;
