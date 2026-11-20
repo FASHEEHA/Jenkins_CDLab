@@ -81,3 +81,5 @@ pipeline {
         }
     }
 }
+ls -l /opt/multiplication-deploy
+echo "5" | java -jar /opt/multiplication-deploy/MultiplicationTable.jar
