@@ -39,3 +39,45 @@
     </build>
 
 </project>
+
+
+//////
+
+pipeline {
+    agent any
+
+    stages {
+
+        stage('Checkout') {
+            steps {
+                git branch: 'main',
+                    url: 'https://github.com/USERNAME/MultiplicationTable.git'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                sh 'mkdir -p target/classes'
+                sh 'javac -d target/classes src/main/java/MultiplicationTable.java'
+            }
+        }
+
+        stage('Package') {
+            steps {
+                sh 'jar --create --file target/MultiplicationTable.jar --main-class MultiplicationTable -C target/classes .'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                sh 'cp target/MultiplicationTable.jar /opt/multiplication-deploy/'
+            }
+        }
+
+        stage('Execute') {
+            steps {
+                sh 'echo "5" | java -jar /opt/multiplication-deploy/MultiplicationTable.jar'
+            }
+        }
+    }
+}
